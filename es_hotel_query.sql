@@ -11,7 +11,8 @@ WHERE YEAR(`date_of_birth`) > 1988
 --3.Seleziona tutti gli ospiti che hanno più di 20anni (al momento dell’esecuzione della query)
 SELECT *
 FROM `ospiti`
-WHERE YEAR(`date_of_birth`)- YEAR(CURRENT_TIMESTAMP) < -20
+WHERE (YEAR(`date_of_birth`)- YEAR(CURRENT_TIMESTAMP) < -20 AND MONTH(`date_of_birth`)- YEAR(CURRENT_TIMESTAMP) < 0) 
+OR ( YEAR(`date_of_birth`)- YEAR(CURRENT_TIMESTAMP) < -21 AND MONTH(`date_of_birth`)- YEAR(CURRENT_TIMESTAMP) > 0)
 
 --4.Seleziona tutti gli ospiti il cui nome inizia con la D
 SELECT *
