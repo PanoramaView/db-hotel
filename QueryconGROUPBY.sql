@@ -1,7 +1,7 @@
 --1. Conta gli ospiti raggruppandoli per anno di nascita
-SELECT COUNT(`id`), YEAR(`date_of_birth`)
+SELECT COUNT(`id`) as `Conteggio Ospiti`, YEAR(`date_of_birth`) as Year
 FROM `ospiti`
-GROUP BY YEAR(`date_of_birth`)
+GROUP BY `Year`
 
 --2.Somma i prezzi dei pagamenti raggruppandoli per status
 SELECT SUM(price), status
@@ -18,18 +18,15 @@ FROM prenotazioni p JOIN stanze s ON p.stanza_id=s.id
 GROUP BY stanza_id
 
 --4.Fai una analisi per vedere se ci sono ore in cui le prenotazioni sono più frequenti
---boh non vanno
-SELECT COUNT(DATEPART(hour, created_at))
-FROM `prenotazioni` 
-GROUP BY DATEPART(hour, created_at) as hours
-ORDER BY created_at DESC
-LIMIT 3
-
-SELECT *
+SELECT HOURE(`created_at`) as `Hour`, COUNT(`id`) as `prenotazioni`
 FROM `prenotazioni`
-WHERE DATEPART(hh, `created_at`) LIKE 18
+GROUP BY `Hour`
+ORDER BY `prenotazioni` DESC
+
 --5.Quante prenotazioni ha fatto l’ospite che ha fatto più prenotazioni? (quante, non chi!
 
-SELECT MAX()
-FROM `prenotazioni`
-WHERE DATEPART(hh, `created_at`) LIKE 18
+SELECT ospite_id, COUNT(*) as `prenotazioni`
+FROM `prenotazioni_has_ospiti`
+GROUP BY `ospite_id`
+ORDER BY prenotazioni DESC
+LIMIT 1
