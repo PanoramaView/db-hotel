@@ -30,3 +30,10 @@ FROM `prenotazioni_has_ospiti`
 GROUP BY `ospite_id`
 ORDER BY prenotazioni DESC
 LIMIT 1
+
+SELECT MAX(`max_products_sold`)
+FROM (
+SELECT COUNT(`prenotazione_id`)AS `max_products_sold` , `ospite_id`
+FROM `prenotazioni_has_ospiti`
+GROUP BY `ospite_id`
+    )SD
